@@ -1,38 +1,34 @@
 package com.thoughtworks.firstapp.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 
-import com.thoughtworks.firstapp.BuildConfig;
 import com.thoughtworks.firstapp.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
+
+    @Bind(R.id.recycler_view)
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button = (Button) findViewById(R.id.btn_second);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchSecondActivity();
-            }
-        });
+        ButterKnife.bind(this);
 
-        System.err.println("This is an error");
-        if (BuildConfig.DEBUG) {
-            Log.e("FirstApp", "This is an error");
-        }
+        initRecyclerView();
     }
 
-    private void launchSecondActivity() {
-        Intent intent = new Intent(this, SecondActivity.class);
-        startActivity(intent);
+    private void initRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new RecyclerViewAdapter(this));
     }
+
 }
