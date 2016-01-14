@@ -87,4 +87,24 @@ public class User {
         this.username = username;
     }
 
+    public com.thoughtworks.firstapp.model.db.User toUser() {
+        com.thoughtworks.firstapp.model.db.User dbUser = new com.thoughtworks.firstapp.model.db.User();
+
+        dbUser.setAvatarURL(avatar);
+        dbUser.setNickname(nick);
+        dbUser.setProfileImageURL(profileImage);
+        dbUser.setUsername(username);
+
+        return dbUser;
+    }
+
+    public static User fromUser(com.thoughtworks.firstapp.model.db.User dbUser) {
+        User user = new User();
+        user.setUsername(dbUser.getUsername());
+        user.setAvatar(dbUser.getAvatarURL());
+        user.setNick(dbUser.getNickname());
+        user.setProfileImage(dbUser.getProfileImageURL());
+        return user;
+    }
+
 }

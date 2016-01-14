@@ -1,16 +1,13 @@
 package com.thoughtworks.firstapp.ui;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.thoughtworks.firstapp.R;
-import com.thoughtworks.firstapp.model.DataManager;
 import com.thoughtworks.firstapp.model.Tweet;
 import com.thoughtworks.firstapp.model.User;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,17 +17,24 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter {
 
     private User user;
-    private List<Tweet> tweets;
+    private List<Tweet> tweets = new ArrayList<>();
 
-    public RecyclerViewAdapter(Context context) {
-        super();
-        try {
-            tweets = DataManager.loadTweets(context);
-            user = DataManager.loadUser(context);
-        } catch (IOException e) {
-            tweets = new ArrayList<>();
-        }
+    public User getUser() {
+        return user;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Tweet> getTweets() {
+        return tweets;
+    }
+
+    public void setTweets(List<Tweet> tweets) {
+        this.tweets = tweets;
+    }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -35,6 +35,10 @@ public class HeaderViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindData(User user) {
+        if (user == null) {
+            return;
+        }
+
         lblName.setText(user.getNick());
 
         Context context = itemView.getContext();

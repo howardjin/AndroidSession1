@@ -12,16 +12,16 @@ import java.util.List;
 /**
  * Created by hjin on 1/13/16.
  */
-public class DataManager {
+public class DataFetcher {
 
-    public static List<Tweet> loadTweets(Context context) throws IOException {
+    public static List<Tweet> fetchTweets(Context context) throws IOException {
 
         Gson gson = new Gson();
         InputStreamReader reader = new InputStreamReader(context.getAssets().open("tweets.json"));
         return gson.fromJson(reader, new TypeToken<List<Tweet>>(){}.getType());
     }
 
-    public static User loadUser(Context context) throws IOException {
+    public static User fetchUser(Context context) throws IOException {
 
         Gson gson = new Gson();
         InputStreamReader reader = new InputStreamReader(context.getAssets().open("user.json"));

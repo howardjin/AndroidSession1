@@ -1,10 +1,14 @@
 
 package com.thoughtworks.firstapp.model;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.RealmList;
 
 public class Tweet {
 
@@ -67,6 +71,38 @@ public class Tweet {
      */
     public void setSender(User sender) {
         this.sender = sender;
+    }
+
+    public static Tweet fromTweet(com.thoughtworks.firstapp.model.db.Tweet dbTweet) {
+
+        Tweet tweet = new Tweet();
+        tweet.setSender(User.fromUser(dbTweet.getSender()));
+        tweet.setContent(dbTweet.getContent());
+
+        tweet.setImages(Lists.transform(dbTweet.getImageURLs(), new Function<com.thoughtworks.firstapp.model.db.Image, Image>() {
+            @Override
+            public com.thoughtworks.firstapp.model.Image apply(com.thoughtworks.firstapp.model.db.Image input) {
+                return Image.fromImage(input);
+            }
+        }));
+
+        return tweet;
+    }
+
+    public com.thoughtworks.firstapp.model.db.Tweet toTweet() {
+
+        com.thoughtworks.firstapp.model.db.Tweet dbTweet = new com.thoughtworks.firstapp.model.db.Tweet();
+
+        dbTweet.setContent(content);
+        dbTweet.setSender(sender.toUser());
+
+        RealmList<com.thoughtworks.firstapp.model.db.Image> imageUrls = new RealmList<>();
+        for (com.thoughtworks.firstapp.model.Image image: images) {
+            imageUrls.add(image.toImage());
+        }
+        dbTweet.setImageURLs(imageUrls);
+
+        return dbTweet;
     }
 
 }

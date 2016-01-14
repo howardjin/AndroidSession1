@@ -33,6 +33,10 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindData(Tweet tweet) {
+        if (tweet == null) {
+            return;
+        }
+
         lblHeader.setText(tweet.getSender().getNick());
         lblContent.setText(tweet.getContent());
         Picasso.with(itemView.getContext()).load(tweet.getSender().getAvatar()).into(avatar);
